@@ -1,0 +1,69 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="tournomentApp.matchEntity.home.title">Match Entities</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-match-entity" [routerLink]="['/match-entity/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="tournomentApp.matchEntity.home.createLabel">
+            Create a new Match Entity
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="matchEntities?.length === 0">
+        <span jhiTranslate="tournomentApp.matchEntity.home.notFound">No matchEntities found</span>
+    </div>
+    <div class="table-responsive" *ngIf="matchEntities?.length > 0">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="tournomentApp.matchEntity.matchType">Match Type</span></th>
+            <th><span jhiTranslate="tournomentApp.matchEntity.place">Place</span></th>
+            <th><span jhiTranslate="tournomentApp.matchEntity.point">Point</span></th>
+            <th><span jhiTranslate="tournomentApp.matchEntity.score">Score</span></th>
+            <th><span jhiTranslate="tournomentApp.matchEntity.group">Group</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let matchEntity of matchEntities ;trackBy: trackId">
+                <td><a [routerLink]="['/match-entity', matchEntity.id, 'view' ]">{{matchEntity.id}}</a></td>
+                <td jhiTranslate="{{'tournomentApp.MatchType.' + matchEntity.matchType}}">{{matchEntity.matchType}}</td>
+                <td>{{matchEntity.place}}</td>
+                <td>{{matchEntity.point}}</td>
+                <td>{{matchEntity.score}}</td>
+                <td>
+                    <div *ngIf="matchEntity.group">
+                        <a [routerLink]="['/group-entity', matchEntity.group?.id, 'view' ]" >{{matchEntity.group?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/match-entity', matchEntity.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/match-entity', matchEntity.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/match-entity', { outlets: { popup: matchEntity.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

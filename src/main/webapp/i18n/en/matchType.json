@@ -1,0 +1,10 @@
+{
+  "tournomentApp": {
+    "MatchType": {
+      "null": "",
+      "NORMALMATCH": "NORMALMATCH",
+      "DOUBLEMATCH": "DOUBLEMATCH",
+      "SPEEDGOMMON": "SPEEDGOMMON"
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "fluentMethods": true,
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "relationshipName": "group",
+      "otherEntityName": "groupEntity",
+      "otherEntityField": "id"
+    }
+  ],
+  "fields": [
+    {
+      "fieldName": "matchType",
+      "fieldType": "MatchType",
+      "fieldValues": "NORMALMATCH,DOUBLEMATCH,SPEEDGOMMON"
+    },
+    {
+      "fieldName": "place",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "point",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "score",
+      "fieldType": "Integer"
+    }
+  ],
+  "changelogDate": "20190827165254",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "entityTableName": "match_entity"
+}

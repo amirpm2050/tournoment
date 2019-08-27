@@ -1,0 +1,29 @@
+{
+  "fluentMethods": true,
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "relationshipValidateRules": "required",
+      "relationshipName": "member",
+      "otherEntityName": "playerEntity",
+      "otherEntityRelationshipName": "team"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "relationshipName": "group",
+      "otherEntityName": "groupEntity",
+      "otherEntityField": "id"
+    }
+  ],
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    }
+  ],
+  "changelogDate": "20190827165251",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "entityTableName": "team_entity"
+}

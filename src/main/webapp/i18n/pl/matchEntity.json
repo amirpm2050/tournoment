@@ -1,0 +1,26 @@
+{
+  "tournomentApp": {
+    "matchEntity": {
+      "home": {
+        "title": "Match Entity",
+        "createLabel": "Dodaj Match Entity",
+        "createOrEditLabel": "Dodaj lub edytuj: Match Entity",
+        "notFound": "No Match Entities found"
+      },
+      "created": "Utworzono nowy obiekt typu Match Entity z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Match Entity z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Match Entity z identyfikatorem {{ param }}",
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć Match Entity {{ id }}?"
+      },
+      "detail": {
+        "title": "Match Entity"
+      },
+      "matchType": "Match Type",
+      "place": "Place",
+      "point": "Point",
+      "score": "Score",
+      "group": "Group"
+    }
+  }
+}

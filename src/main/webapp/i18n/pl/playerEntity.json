@@ -1,0 +1,24 @@
+{
+  "tournomentApp": {
+    "playerEntity": {
+      "home": {
+        "title": "Player Entity",
+        "createLabel": "Dodaj Player Entity",
+        "createOrEditLabel": "Dodaj lub edytuj: Player Entity",
+        "notFound": "No Player Entities found"
+      },
+      "created": "Utworzono nowy obiekt typu Player Entity z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Player Entity z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Player Entity z identyfikatorem {{ param }}",
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć Player Entity {{ id }}?"
+      },
+      "detail": {
+        "title": "Player Entity"
+      },
+      "name": "Name",
+      "mobile": "Mobile",
+      "team": "Team"
+    }
+  }
+}

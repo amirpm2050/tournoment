@@ -1,0 +1,26 @@
+{
+  "fluentMethods": true,
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "relationshipName": "team",
+      "otherEntityName": "teamEntity",
+      "otherEntityField": "id"
+    }
+  ],
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "mobile",
+      "fieldType": "String"
+    }
+  ],
+  "changelogDate": "20190827165252",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "entityTableName": "player_entity"
+}

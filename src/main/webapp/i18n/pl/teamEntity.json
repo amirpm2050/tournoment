@@ -1,0 +1,24 @@
+{
+  "tournomentApp": {
+    "teamEntity": {
+      "home": {
+        "title": "Team Entity",
+        "createLabel": "Dodaj Team Entity",
+        "createOrEditLabel": "Dodaj lub edytuj: Team Entity",
+        "notFound": "No Team Entities found"
+      },
+      "created": "Utworzono nowy obiekt typu Team Entity z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Team Entity z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Team Entity z identyfikatorem {{ param }}",
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć Team Entity {{ id }}?"
+      },
+      "detail": {
+        "title": "Team Entity"
+      },
+      "name": "Name",
+      "member": "Member",
+      "group": "Group"
+    }
+  }
+}
