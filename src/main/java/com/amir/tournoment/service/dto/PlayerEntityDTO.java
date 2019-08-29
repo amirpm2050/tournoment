@@ -2,6 +2,7 @@ package com.amir.tournoment.service.dto;
 
 import com.amir.tournoment.domain.PlayerEntity;
 import com.amir.tournoment.domain.TeamEntity;
+import org.springframework.cloud.cloudfoundry.com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.Size;
 
@@ -10,12 +11,15 @@ public class PlayerEntityDTO {
     private Long id ;
 
     @Size(min = 3  , max =  50)
+    @JsonProperty
     private String name ;
 
     @Size(min = 11 , max = 11)
-    private String mobileNumber ;
+    @JsonProperty
+    private String mobile ;
 
-    private TeamEntity teamEntity ;
+    @JsonProperty
+    private TeamEntity team ;
 
     public PlayerEntityDTO() {
     }
@@ -23,8 +27,8 @@ public class PlayerEntityDTO {
     public PlayerEntityDTO(PlayerEntity playerEntity ) {
         this.id = playerEntity.getId();
         this.name = playerEntity.getName();
-        this.mobileNumber = playerEntity.getMobile();
-        this.teamEntity = playerEntity.getTeam();
+        this.mobile = playerEntity.getMobile();
+        this.team = playerEntity.getTeam();
     }
 
     public Long getId() {
@@ -43,20 +47,20 @@ public class PlayerEntityDTO {
         this.name = name;
     }
 
-    public String getMobileNumber() {
-        return mobileNumber;
+    public String getMobile() {
+        return mobile;
     }
 
-    public void setMobileNumber(String mobileNumber) {
-        this.mobileNumber = mobileNumber;
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
-    public TeamEntity getTeamEntity() {
-        return teamEntity;
+    public TeamEntity getTeam() {
+        return team;
     }
 
-    public void setTeamEntity(TeamEntity teamEntity) {
-        this.teamEntity = teamEntity;
+    public void setTeamEntity(TeamEntity team) {
+        this.team = team;
     }
 
     @Override
@@ -64,8 +68,8 @@ public class PlayerEntityDTO {
         return "PlayerEntityDTO{" +
             "id=" + id +
             ", name='" + name + '\'' +
-            ", mobileNumber='" + mobileNumber + '\'' +
-            ", teamEntity=" + teamEntity +
+            ", mobileNumber='" + mobile + '\'' +
+            ", teamEntity=" + team +
             '}';
     }
 

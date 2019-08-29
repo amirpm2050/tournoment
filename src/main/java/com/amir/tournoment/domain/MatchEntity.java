@@ -41,6 +41,7 @@ public class MatchEntity implements Serializable {
     @JsonIgnoreProperties("matchEntities")
     private GroupEntity group;
 
+    
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;

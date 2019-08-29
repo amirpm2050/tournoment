@@ -5,6 +5,7 @@ import com.amir.tournoment.domain.GroupEntity;
 import com.amir.tournoment.domain.TeamEntity;
 import com.amir.tournoment.domain.MatchEntity;
 import com.amir.tournoment.repository.GroupEntityRepository;
+import com.amir.tournoment.service.GroupEntityService;
 import com.amir.tournoment.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -42,6 +43,10 @@ public class GroupEntityResourceIT {
     private GroupEntityRepository groupEntityRepository;
 
     @Autowired
+    private GroupEntityService groupEntityService;
+
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -63,7 +68,7 @@ public class GroupEntityResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final GroupEntityResource groupEntityResource = new GroupEntityResource(groupEntityRepository);
+        final GroupEntityResource groupEntityResource = new GroupEntityResource(groupEntityRepository, groupEntityService);
         this.restGroupEntityMockMvc = MockMvcBuilders.standaloneSetup(groupEntityResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

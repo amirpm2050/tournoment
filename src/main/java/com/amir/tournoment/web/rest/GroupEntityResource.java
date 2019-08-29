@@ -1,7 +1,9 @@
 package com.amir.tournoment.web.rest;
 
 import com.amir.tournoment.domain.GroupEntity;
+import com.amir.tournoment.domain.TeamEntity;
 import com.amir.tournoment.repository.GroupEntityRepository;
+import com.amir.tournoment.service.GroupEntityService;
 import com.amir.tournoment.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -34,9 +36,10 @@ public class GroupEntityResource {
     private String applicationName;
 
     private final GroupEntityRepository groupEntityRepository;
-
-    public GroupEntityResource(GroupEntityRepository groupEntityRepository) {
+    private final GroupEntityService groupEntityService ;
+    public GroupEntityResource(GroupEntityRepository groupEntityRepository, GroupEntityService groupEntityService) {
         this.groupEntityRepository = groupEntityRepository;
+        this.groupEntityService = groupEntityService;
     }
 
     /**
@@ -69,7 +72,7 @@ public class GroupEntityResource {
      */
     @PutMapping("/group-entities")
     public ResponseEntity<GroupEntity> updateGroupEntity(@Valid @RequestBody GroupEntity groupEntity) throws URISyntaxException {
-        log.debug("REST request to update GroupEntity : {}", groupEntity);
+        log.debug("REST request to update GroupEntity : {}",groupEntity);
         if (groupEntity.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
@@ -89,6 +92,18 @@ public class GroupEntityResource {
     public List<GroupEntity> getAllGroupEntities() {
         log.debug("REST request to get all GroupEntities");
         return groupEntityRepository.findAll();
+    }
+
+    /**
+     * {@code GET  /group-entity-teams} : get all the groupEntity team's.
+     *
+
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of groupEntities in body.
+     */
+    @GetMapping("/group-entity-teams/{groupId}")
+    public List<TeamEntity> getAllGroupEntities(@PathVariable Long groupId) {
+        log.debug("REST request to get all GroupEntities");
+        return  groupEntityService.getTeamsOfGroup(groupEntityRepository.findById(groupId).get());
     }
 
     /**

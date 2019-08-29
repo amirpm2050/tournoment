@@ -5,6 +5,10 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { IGroupEntity, GroupEntity } from 'app/shared/model/group-entity.model';
 import { GroupEntityService } from './group-entity.service';
+import {filter, map} from "rxjs/operators";
+import {ITeamEntity} from "app/shared/model/team-entity.model";
+import {JhiAlertService} from "ng-jhipster";
+import {TeamEntityService} from "app/entities/team-entity";
 
 @Component({
   selector: 'jhi-group-entity-update',
@@ -12,19 +16,35 @@ import { GroupEntityService } from './group-entity.service';
 })
 export class GroupEntityUpdateComponent implements OnInit {
   isSaving: boolean;
+  teamentities: IGroupEntity[];
 
   editForm = this.fb.group({
     id: [],
-    name: []
+    name: [],
+    teams:[]
   });
 
-  constructor(protected groupEntityService: GroupEntityService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
+
+  constructor(
+    protected groupEntityService: GroupEntityService,
+    protected jhiAlertService: JhiAlertService,
+    protected teamEntityService: TeamEntityService,
+    protected activatedRoute: ActivatedRoute,
+    private fb: FormBuilder) {}
 
   ngOnInit() {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ groupEntity }) => {
       this.updateForm(groupEntity);
     });
+    this.teamEntityService
+      .query()
+      .pipe(
+        filter((mayBeOk: HttpResponse<ITeamEntity[]>) => mayBeOk.ok),
+        map((response: HttpResponse<ITeamEntity[]>) => response.body)
+      )
+      .subscribe((res: ITeamEntity[]) => (this.teamentities = res), (res: HttpErrorResponse) => this.onError(res.message));
+
   }
 
   updateForm(groupEntity: IGroupEntity) {
@@ -67,5 +87,8 @@ export class GroupEntityUpdateComponent implements OnInit {
 
   protected onSaveError() {
     this.isSaving = false;
+  }
+  protected onError(errorMessage: string) {
+    this.jhiAlertService.error(errorMessage, null, null);
   }
 }

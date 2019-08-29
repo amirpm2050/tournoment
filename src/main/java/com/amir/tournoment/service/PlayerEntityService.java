@@ -24,19 +24,17 @@ public class PlayerEntityService {
     public PlayerEntity createPlayerEntity (PlayerEntityDTO playerEntityDTO){
         PlayerEntity playerEntity = new PlayerEntity() ;
         playerEntity.setName(playerEntityDTO.getName());
-        playerEntity.setMobile(playerEntityDTO.getMobileNumber());
+        playerEntity.setMobile(playerEntityDTO.getMobile());
         List<PlayerEntity> playerEntityList = playerEntityRepository.findAll() ;
         int playersOfTeam = 0  ;
-        log.debug("Opps");
         for(PlayerEntity player : playerEntityList ){
             if (player.getTeam() != null) {
-                log.debug("amirLogDto "+playerEntityDTO.getTeamEntity().toString() );
-                if (player.getTeam().getId() == playerEntityDTO.getTeamEntity().getId())
+                if (player.getTeam().getId() == playerEntityDTO.getTeam().getId())
                     playersOfTeam += 1;
             }
         }
-        if (playersOfTeam <= 2 )
-            playerEntity.setTeam(playerEntityDTO.getTeamEntity());
+        if (playersOfTeam < 9 )
+            playerEntity.setTeam(playerEntityDTO.getTeam());
         else
             throw new TeamEntityIsFullException() ;
 
