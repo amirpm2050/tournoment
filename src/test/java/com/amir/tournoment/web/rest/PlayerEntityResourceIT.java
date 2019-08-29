@@ -3,6 +3,7 @@ package com.amir.tournoment.web.rest;
 import com.amir.tournoment.TournomentApp;
 import com.amir.tournoment.domain.PlayerEntity;
 import com.amir.tournoment.repository.PlayerEntityRepository;
+import com.amir.tournoment.service.PlayerEntityService;
 import com.amir.tournoment.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -43,6 +44,9 @@ public class PlayerEntityResourceIT {
     private PlayerEntityRepository playerEntityRepository;
 
     @Autowired
+    private PlayerEntityService playerEntityService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -64,7 +68,7 @@ public class PlayerEntityResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final PlayerEntityResource playerEntityResource = new PlayerEntityResource(playerEntityRepository);
+        final PlayerEntityResource playerEntityResource = new PlayerEntityResource(playerEntityRepository , playerEntityService);
         this.restPlayerEntityMockMvc = MockMvcBuilders.standaloneSetup(playerEntityResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -156,7 +160,7 @@ public class PlayerEntityResourceIT {
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].mobile").value(hasItem(DEFAULT_MOBILE.toString())));
     }
-    
+
     @Test
     @Transactional
     public void getPlayerEntity() throws Exception {

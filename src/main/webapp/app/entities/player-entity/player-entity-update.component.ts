@@ -67,6 +67,7 @@ export class PlayerEntityUpdateComponent implements OnInit {
     if (playerEntity.id !== undefined) {
       this.subscribeToSaveResponse(this.playerEntityService.update(playerEntity));
     } else {
+      console.log(playerEntity);
       this.subscribeToSaveResponse(this.playerEntityService.create(playerEntity));
     }
   }

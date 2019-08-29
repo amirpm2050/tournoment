@@ -2,6 +2,8 @@ package com.amir.tournoment.web.rest;
 
 import com.amir.tournoment.domain.PlayerEntity;
 import com.amir.tournoment.repository.PlayerEntityRepository;
+import com.amir.tournoment.service.PlayerEntityService;
+import com.amir.tournoment.service.dto.PlayerEntityDTO;
 import com.amir.tournoment.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -29,29 +32,33 @@ public class PlayerEntityResource {
 
     private static final String ENTITY_NAME = "playerEntity";
 
+    private final PlayerEntityService playerEntityService ;
+
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
     private final PlayerEntityRepository playerEntityRepository;
 
-    public PlayerEntityResource(PlayerEntityRepository playerEntityRepository) {
+    public PlayerEntityResource(PlayerEntityRepository playerEntityRepository , PlayerEntityService playerEntityService) {
         this.playerEntityRepository = playerEntityRepository;
+        this.playerEntityService = playerEntityService;
     }
 
     /**
      * {@code POST  /player-entities} : Create a new playerEntity.
      *
-     * @param playerEntity the playerEntity to create.
+     * @param playerEntityDTO the playerEntity to create.
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new playerEntity, or with status {@code 400 (Bad Request)} if the playerEntity has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/player-entities")
-    public ResponseEntity<PlayerEntity> createPlayerEntity(@RequestBody PlayerEntity playerEntity) throws URISyntaxException {
-        log.debug("REST request to save PlayerEntity : {}", playerEntity);
-        if (playerEntity.getId() != null) {
+    public ResponseEntity<PlayerEntity> createPlayerEntity(@RequestBody PlayerEntityDTO playerEntityDTO) throws URISyntaxException {
+        log.debug("REST request to save PlayerEntity : {}", playerEntityDTO);
+        if (playerEntityDTO.getId() != null) {
             throw new BadRequestAlertException("A new playerEntity cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        PlayerEntity result = playerEntityRepository.save(playerEntity);
+        log.debug("Resource :"+playerEntityDTO.toString());
+        PlayerEntity result = playerEntityService.createPlayerEntity(playerEntityDTO);
         return ResponseEntity.created(new URI("/api/player-entities/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
