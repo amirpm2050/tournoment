@@ -58,7 +58,7 @@ public class PlayerEntityResource {
             throw new BadRequestAlertException("A new playerEntity cannot already have an ID", ENTITY_NAME, "idexists");
         }
         log.debug("Resource :"+playerEntityDTO.toString());
-        PlayerEntity result = playerEntityService.createPlayerEntity(playerEntityDTO);
+        PlayerEntity result = playerEntityRepository.save(playerEntityService.createPlayerEntity(playerEntityDTO));
         return ResponseEntity.created(new URI("/api/player-entities/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);

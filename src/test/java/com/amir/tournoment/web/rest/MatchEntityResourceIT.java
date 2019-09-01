@@ -3,6 +3,7 @@ package com.amir.tournoment.web.rest;
 import com.amir.tournoment.TournomentApp;
 import com.amir.tournoment.domain.MatchEntity;
 import com.amir.tournoment.repository.MatchEntityRepository;
+import com.amir.tournoment.service.MatchEntityService;
 import com.amir.tournoment.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -52,6 +53,9 @@ public class MatchEntityResourceIT {
     private MatchEntityRepository matchEntityRepository;
 
     @Autowired
+    private MatchEntityService matchEntityService;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -73,7 +77,7 @@ public class MatchEntityResourceIT {
     @BeforeEach
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final MatchEntityResource matchEntityResource = new MatchEntityResource(matchEntityRepository);
+        final MatchEntityResource matchEntityResource = new MatchEntityResource(matchEntityRepository , matchEntityService);
         this.restMatchEntityMockMvc = MockMvcBuilders.standaloneSetup(matchEntityResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

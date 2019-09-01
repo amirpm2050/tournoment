@@ -1,11 +1,16 @@
 package com.amir.tournoment.domain;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * A PlayerEntity.
@@ -31,6 +36,8 @@ public class PlayerEntity implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties("playerEntities")
     private TeamEntity team;
+
+
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -79,7 +86,8 @@ public class PlayerEntity implements Serializable {
     public void setTeam(TeamEntity teamEntity) {
         this.team = teamEntity;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
+
+     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
     public boolean equals(Object o) {
@@ -100,9 +108,10 @@ public class PlayerEntity implements Serializable {
     @Override
     public String toString() {
         return "PlayerEntity{" +
-            "id=" + getId() +
-            ", name='" + getName() + "'" +
-            ", mobile='" + getMobile() + "'" +
-            "}";
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", mobile='" + mobile + '\'' +
+            ", team=" + team +
+            '}';
     }
 }

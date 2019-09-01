@@ -1,4 +1,5 @@
 package com.amir.tournoment.domain;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -6,6 +7,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import com.amir.tournoment.domain.enumeration.MatchType;
 
@@ -41,7 +45,20 @@ public class MatchEntity implements Serializable {
     @JsonIgnoreProperties("matchEntities")
     private GroupEntity group;
 
-    
+    @ManyToMany(cascade = CascadeType.ALL , fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "match_player_1",
+        joinColumns = {@JoinColumn(name = "match_id", referencedColumnName = "id")},
+        inverseJoinColumns = {@JoinColumn(name = "player_id", referencedColumnName = "id")})
+    private Set<PlayerEntity> playerOne ;
+
+    @ManyToMany(cascade = CascadeType.ALL , fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "match_player_2",
+        joinColumns = {@JoinColumn(name = "match_id", referencedColumnName = "id")},
+        inverseJoinColumns = {@JoinColumn(name = "player_id", referencedColumnName = "id")})
+    private Set<PlayerEntity> playerTwo ;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -117,6 +134,23 @@ public class MatchEntity implements Serializable {
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
+
+    public Set<PlayerEntity> getPlayerOne() {
+        return playerOne;
+    }
+
+    public void setPlayerOne(Set<PlayerEntity> playerOne) {
+        this.playerOne = playerOne;
+    }
+
+    public Set<PlayerEntity> getPlayerTwo() {
+        return playerTwo;
+    }
+
+    public void setPlayerTwo(Set<PlayerEntity> playerTwo) {
+        this.playerTwo = playerTwo;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -136,11 +170,14 @@ public class MatchEntity implements Serializable {
     @Override
     public String toString() {
         return "MatchEntity{" +
-            "id=" + getId() +
-            ", matchType='" + getMatchType() + "'" +
-            ", place='" + getPlace() + "'" +
-            ", point=" + getPoint() +
-            ", score=" + getScore() +
-            "}";
+            "id=" + id +
+            ", matchType=" + matchType +
+            ", place='" + place + '\'' +
+            ", point=" + point +
+            ", score=" + score +
+            ", group=" + group +
+            ", playerOne=" + playerOne +
+            ", playerTwo=" + playerTwo +
+            '}';
     }
 }

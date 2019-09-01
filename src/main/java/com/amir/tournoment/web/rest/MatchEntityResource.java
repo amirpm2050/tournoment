@@ -2,6 +2,8 @@ package com.amir.tournoment.web.rest;
 
 import com.amir.tournoment.domain.MatchEntity;
 import com.amir.tournoment.repository.MatchEntityRepository;
+import com.amir.tournoment.service.MatchEntityService;
+import com.amir.tournoment.service.dto.MatchEntityDTO;
 import com.amir.tournoment.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -33,25 +35,27 @@ public class MatchEntityResource {
     private String applicationName;
 
     private final MatchEntityRepository matchEntityRepository;
+    private final MatchEntityService matchEntityService;
 
-    public MatchEntityResource(MatchEntityRepository matchEntityRepository) {
+    public MatchEntityResource(MatchEntityRepository matchEntityRepository , MatchEntityService matchEntityService) {
         this.matchEntityRepository = matchEntityRepository;
+        this.matchEntityService = matchEntityService;
     }
 
     /**
      * {@code POST  /match-entities} : Create a new matchEntity.
      *
-     * @param matchEntity the matchEntity to create.
+     * @param matchEntityDTO the matchEntity to create.
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new matchEntity, or with status {@code 400 (Bad Request)} if the matchEntity has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/match-entities")
-    public ResponseEntity<MatchEntity> createMatchEntity(@RequestBody MatchEntity matchEntity) throws URISyntaxException {
-        log.debug("REST request to save MatchEntity : {}", matchEntity);
-        if (matchEntity.getId() != null) {
+    public ResponseEntity<MatchEntity> createMatchEntity(@RequestBody MatchEntityDTO matchEntityDTO) throws URISyntaxException {
+        log.debug("REST request to save MatchEntity : {}", matchEntityDTO);
+        if (matchEntityDTO.getId() != null) {
             throw new BadRequestAlertException("A new matchEntity cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        MatchEntity result = matchEntityRepository.save(matchEntity);
+        MatchEntity result = matchEntityRepository.save( matchEntityService.createMachEntity(matchEntityDTO));
         return ResponseEntity.created(new URI("/api/match-entities/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);

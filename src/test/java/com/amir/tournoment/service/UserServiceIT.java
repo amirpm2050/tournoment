@@ -85,7 +85,6 @@ public class UserServiceIT {
     }
 
     @Test
-    @Transactional
     public void testRemoveOldPersistentTokens() {
         userRepository.saveAndFlush(user);
         int existingCount = persistentTokenRepository.findByUser(user).size();
