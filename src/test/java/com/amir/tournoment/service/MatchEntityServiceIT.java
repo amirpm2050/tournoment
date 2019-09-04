@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringBootTest(classes = TournomentApp.class)
 @Transactional
 public class MatchEntityServiceIT {
+
     @Autowired
     MatchEntityService matchEntityService ;
+
 }

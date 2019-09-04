@@ -22,5 +22,7 @@
     <include file="config/liquibase/changelog/20190827165251_added_entity_constraints_TeamEntity.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190827165252_added_entity_constraints_PlayerEntity.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190827165254_added_entity_constraints_MatchEntity.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/create_table_match_player.xml" relativeToChangelogFile="false"/>
+
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

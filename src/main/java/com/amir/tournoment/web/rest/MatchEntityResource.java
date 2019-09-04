@@ -1,6 +1,7 @@
 package com.amir.tournoment.web.rest;
 
 import com.amir.tournoment.domain.MatchEntity;
+import com.amir.tournoment.domain.PlayerEntity;
 import com.amir.tournoment.repository.MatchEntityRepository;
 import com.amir.tournoment.service.MatchEntityService;
 import com.amir.tournoment.service.dto.MatchEntityDTO;
@@ -55,7 +56,7 @@ public class MatchEntityResource {
         if (matchEntityDTO.getId() != null) {
             throw new BadRequestAlertException("A new matchEntity cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        MatchEntity result = matchEntityRepository.save( matchEntityService.createMachEntity(matchEntityDTO));
+        MatchEntity result =matchEntityService.createMachEntity(matchEntityDTO);
         return ResponseEntity.created(new URI("/api/match-entities/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -105,6 +106,11 @@ public class MatchEntityResource {
         log.debug("REST request to get MatchEntity : {}", id);
         Optional<MatchEntity> matchEntity = matchEntityRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(matchEntity);
+    }
+
+    @GetMapping("/group-players/{id}")
+    public List<PlayerEntity> getPlayerOfTheGroup(@PathVariable Long id ){
+        return matchEntityService.findPlayerEntitiesOfGroup(id);
     }
 
     /**

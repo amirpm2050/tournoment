@@ -6,6 +6,7 @@ import com.amir.tournoment.domain.PlayerEntity;
 import com.amir.tournoment.domain.enumeration.MatchType;
 
 import javax.validation.constraints.Size;
+import java.util.List;
 import java.util.Set;
 
 public class MatchEntityDTO {
@@ -39,8 +40,8 @@ public class MatchEntityDTO {
         this.place = matchEntity.getPlace();
         this.score = matchEntity.getScore();
         this.group = matchEntity.getGroup();
-        this.playerOne = matchEntity.getPlayerOne();
-        this.playerTwo = matchEntity.getPlayerTwo();
+        this.playerOne.addAll( matchEntity.getPlayerOne());
+        this.playerTwo.addAll( matchEntity.getPlayerTwo());
     }
 
     public Long getId() {
